@@ -14,7 +14,7 @@ public class HomePage extends BasePage {
 
 
 	private By homePageWrapper;
-	public By homePageSearch;
+
 	
 	public HomePage(WebDriver driver, Wait<WebDriver> wait) {
 		super(driver, wait);

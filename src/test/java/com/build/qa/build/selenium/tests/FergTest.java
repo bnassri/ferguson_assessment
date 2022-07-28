@@ -1,5 +1,6 @@
 package com.build.qa.build.selenium.tests;
 
+import com.build.qa.build.selenium.pageobjects.SearchResultsPage;
 import org.junit.Test;
 
 
@@ -35,7 +36,10 @@ public class FergTest extends BaseFramework {
 		homepage.searchBox.sendKeys("Moen m6702bn");
 		homepage.searchButton.click();
 
-		//softly.assertThat()
+		SearchResultsPage searchResultsPage = new SearchResultsPage(driver,wait);
+		softly.assertThat(searchResultsPage.onCorrectSearchResultsPage())
+				.as("The correct product brand and product id should be displayed")
+				.isTrue();
 	}
 
 	/**
