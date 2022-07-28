@@ -2,6 +2,7 @@ package com.build.qa.build.selenium.tests;
 
 import org.junit.Test;
 
+
 import com.build.qa.build.selenium.framework.BaseFramework;
 import com.build.qa.build.selenium.pageobjects.homepage.HomePage;
 
@@ -29,6 +30,12 @@ public class FergTest extends BaseFramework {
 	@Test
 	public void searchForProductLandsOnCorrectProduct() {
 		// Task #1: Implement this test
+		driver.get(getConfiguration("HOMEPAGE"));
+		HomePage homepage = new HomePage(driver, wait);
+		homepage.searchBox.sendKeys("Moen m6702bn");
+		homepage.searchButton.click();
+
+		//softly.assertThat()
 	}
 
 	/**
