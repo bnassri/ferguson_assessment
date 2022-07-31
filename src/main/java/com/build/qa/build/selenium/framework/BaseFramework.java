@@ -23,7 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class BaseFramework {
-	protected WebDriver driver;
+	public WebDriver driver;
 	protected Wait<WebDriver> wait;
 	private static final Logger LOG = LoggerFactory.getLogger(BaseFramework.class);
 	private static final String CONFIG_FILE = "./conf/automation.properties";
@@ -62,18 +62,21 @@ public abstract class BaseFramework {
 				.ignoring(NoSuchElementException.class);
 	}
 
-	protected WebDriver getDriver() {
-		return driver;
+	public WebDriver getDriver() {return driver;
 	}
 
 	protected String getConfiguration(String config) {
 		return configuration.getProperty(config);
 	}
 
+	/*
 	@After
 	public void tearDownAfter() {
 		LOG.info("Quitting driver.");
 		driver.quit();
 		driver = null;
+
 	}
+
+	 */
 }

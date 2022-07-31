@@ -1,11 +1,19 @@
 package com.build.qa.build.selenium.tests;
 
-import com.build.qa.build.selenium.pageobjects.SearchResultsPage;
+import com.build.qa.build.selenium.pageobjects.ShoppingCartPage;
+import com.build.qa.build.selenium.pageobjects.Task1_SearchResultsPage;
+import com.build.qa.build.selenium.pageobjects.BathroomSinksPage;
 import org.junit.Test;
 
 
 import com.build.qa.build.selenium.framework.BaseFramework;
 import com.build.qa.build.selenium.pageobjects.homepage.HomePage;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.FluentWait;
+
+import java.util.concurrent.TimeUnit;
 
 public class FergTest extends BaseFramework {
 
@@ -36,8 +44,8 @@ public class FergTest extends BaseFramework {
 		homepage.searchBox.sendKeys("Moen m6702bn");
 		homepage.searchButton.click();
 
-		SearchResultsPage searchResultsPage = new SearchResultsPage(driver,wait);
-		softly.assertThat(searchResultsPage.onCorrectSearchResultsPage())
+		Task1_SearchResultsPage task1SearchResultsPage = new Task1_SearchResultsPage(driver,wait);
+		softly.assertThat(task1SearchResultsPage.onCorrectSearchResultsPage())
 				.as("The correct product brand and product id should be displayed")
 				.isTrue();
 	}
@@ -52,6 +60,27 @@ public class FergTest extends BaseFramework {
 	@Test
 	public void addProductToCartFromCategoryDrop() {
 		// Task #2: Implement this test
+		driver.get(getConfiguration("SinkSearch"));
+		ShoppingCartPage shoppingCartPage = new ShoppingCartPage(driver,wait);
+		BathroomSinksPage bathroomSinksPage = new BathroomSinksPage(driver, wait);
+		bathroomSinksPage.addToCartButton.click();
+
+
+
+		driver.switchTo().activeElement().isDisplayed();
+		wait = new FluentWait<WebDriver>(driver).withTimeout(5, TimeUnit.SECONDS).pollingEvery(100, TimeUnit.MILLISECONDS).ignoring(StaleElementReferenceException.class).ignoring(NoSuchElementException.class);
+		String sinkPagePartNumber = bathroomSinksPage.findPartNumber("Pfister Pfirst Series™ Single Handle Monoblock Bathroom Sink Faucet in Polished Chrome");
+		bathroomSinksPage.cartPopUpAddButton.click();
+
+
+		wait = new FluentWait<WebDriver>(driver).withTimeout(2, TimeUnit.SECONDS).pollingEvery(500, TimeUnit.MILLISECONDS);
+		bathroomSinksPage.shoppingCart.click();
+
+		softly.assertThat((shoppingCartPage.cartPartNumber.getText()).contains(sinkPagePartNumber))
+				.as("part numbers must match")
+				.isTrue();
+
+
 	}
 
 	/**
