@@ -18,17 +18,12 @@ public class BathroomSinksPage extends BasePage {
     public BathroomSinksPage(WebDriver driver, Wait<WebDriver> wait) {
         super(driver, wait);
         bathroomSinksPageWrapper = By.cssSelector("#wrapper.plp");
-        //popUpAlert = By.xpath("/html/body/div[15]/div/div");
+
 
     }
 
-    //public boolean addToCartPopUp(){
-    //    return wait.until(ExpectedConditions.presenceOfElementLocated(popUpAlert)) !=null;
-    //}
-    public boolean onBathroomSinksPage() {
-        return wait.until(ExpectedConditions.presenceOfElementLocated(bathroomSinksPageWrapper)) != null;
-    }
 
+    //method to find any part number on the page
     public static String productPartNumberFinder = "//p[text()='?']//ancestor::div[@class='sr-content-box']//p[contains(text(),'Part') and not(contains(text(),'Mfr'))]/following-sibling::span";
 
     public String findPartNumber(String productName){
