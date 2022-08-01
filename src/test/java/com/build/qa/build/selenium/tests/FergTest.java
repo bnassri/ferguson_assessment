@@ -6,13 +6,10 @@ import com.build.qa.build.selenium.pageobjects.Task1_SearchResultsPage;
 import com.build.qa.build.selenium.pageobjects.BathroomSinksPage;
 import org.junit.Test;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
 
 import com.build.qa.build.selenium.framework.BaseFramework;
 import com.build.qa.build.selenium.pageobjects.homepage.HomePage;
-import org.openqa.selenium.remote.server.handler.ImplicitlyWait;
 import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -116,29 +113,57 @@ public class FergTest extends BaseFramework {
 		driver.get(getConfiguration("SinkSearch"));
 		BathroomSinksPage bathroomSinksPage = new BathroomSinksPage(driver, wait);
 
-		String itemsBeforeFirstFilter = bathroomSinksPage.itemsBeforeFiltering.getAttribute("value");
-		System.out.println("itemsBeforeFirstFilter = " + itemsBeforeFirstFilter);
+		//no filter
+		int itemsBeforeFirstFilter = Integer.parseInt(bathroomSinksPage.itemsBeforeFiltering.getAttribute("data-total-record"));
 
+
+		//filter by Moen products
 		bathroomSinksPage.moenCheckBox.click();
 		Thread.sleep(3000);
-		String itemsAfterMoenFilter = bathroomSinksPage.itemsAfterMoenFilter.getAttribute("value");
-		System.out.println("itemsAfterMoenFilter = " + itemsAfterMoenFilter);
+		int itemsAfterMoenFilter = Integer.parseInt(bathroomSinksPage.itemCountAfterMoenFilter.getAttribute("data-total-record"));
 
+
+		//verify that Moen filter returns less than no filters
+		softly.assertThat(itemsAfterMoenFilter < itemsBeforeFirstFilter)
+				.as("item count after Moen filter should be less than item count before any filters")
+				.isTrue();
+
+
+		//filter by Moen & monoblock products
 		bathroomSinksPage.monoblockCheckBox.click();
 		Thread.sleep(3000);
-		String itemsAfterMonoblockFilter = bathroomSinksPage.itemsAfterMonoblockFilter.getAttribute("value");
-		System.out.println("itemsAfterMonoblockFilter = " + itemsAfterMonoblockFilter);
+		int itemsAfterMonoblockFilter = Integer.parseInt(bathroomSinksPage.itemCountAfterBothFilters.getAttribute("data-total-record"));
+
+
+		//verify that monoblock + Moen filter returns less than just Moen filter
+		softly.assertThat(itemsAfterMonoblockFilter < itemsAfterMoenFilter)
+				.as("item count after Moen filter should be less than item count before any filters")
+				.isTrue();
 
 		bathroomSinksPage.showMoreButton.click();
 		Thread.sleep(3000);
 
-		List<WebElement> allItems = driver.findElements(By.cssSelector(".fg-search-results-li"));
-		String locator = driver.findElement(By.xpath(".fg-search-results-li"))
-		for (WebElement element: allItems) {
-			//System.out.println(allItems.size());
-			System.out.println(element.getAttribute().toString());
 
+		List<WebElement> allItems = driver.findElements(By.cssSelector(".fg-search-results-li"));
+		int totalItemsAfterFilter = allItems.size();
+
+		//verify that the two filter search result contains both Moen and Monoblock
+		for(WebElement element: allItems){
+			softly.assertThat(element.findElement(By.xpath("//a[@title = *]"))
+					.getText().toLowerCase().contains("moen"))
+					.as("element must contains 'moen'")
+					.isTrue();
+			softly.assertThat(element.findElement(By.xpath("//a[@title = *]"))
+							.getText().toLowerCase().contains("monoblock"))
+					.as("element must contains 'monoblock'")
+					.isTrue();
 		}
+
+
+		//verify that result count matches count after both filters
+		softly.assertThat(totalItemsAfterFilter == itemsAfterMonoblockFilter)
+				.as("number of items in list should equal number of items after both filters applied")
+				.isTrue();
 
 
 

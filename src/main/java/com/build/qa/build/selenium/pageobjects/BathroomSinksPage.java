@@ -1,9 +1,6 @@
 package com.build.qa.build.selenium.pageobjects;
-import com.build.qa.build.selenium.pageobjects.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -57,17 +54,19 @@ public class BathroomSinksPage extends BasePage {
     @FindBy (xpath = "//*[. = 'Show More']")
     public WebElement showMoreButton;
 
-    @FindBy (xpath = "//input[@value = '3,102']")
+    @FindBy (xpath = "//div[@data-total-record]")
     public WebElement itemsBeforeFiltering;
 
-    @FindBy (xpath = "//input[@value = '213']")
-    public WebElement itemsAfterMoenFilter;
+    @FindBy (xpath = "//div[@data-total-record]")
+    public WebElement itemCountAfterMoenFilter;
 
-    @FindBy (xpath = "//input[@value = '37']")
-    public  WebElement itemsAfterMonoblockFilter;
+    @FindBy (xpath = "//div[@data-total-record]")
+    public  WebElement itemCountAfterBothFilters;
 
-    //*[@id="sku7203481"]/div[4]/a/p
-    (//*[@class = 'fg-search-results-li js-compare-search-item '])//div//div[4]//a
+
+
+
+
 
 
 
