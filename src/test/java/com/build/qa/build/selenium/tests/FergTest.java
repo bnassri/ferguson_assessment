@@ -5,16 +5,16 @@ import com.build.qa.build.selenium.pageobjects.ShoppingCartPage;
 import com.build.qa.build.selenium.pageobjects.Task1_SearchResultsPage;
 import com.build.qa.build.selenium.pageobjects.BathroomSinksPage;
 import org.junit.Test;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 
 import com.build.qa.build.selenium.framework.BaseFramework;
 import com.build.qa.build.selenium.pageobjects.homepage.HomePage;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.server.handler.ImplicitlyWait;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class FergTest extends BaseFramework {
@@ -104,13 +104,45 @@ public class FergTest extends BaseFramework {
 	 * @difficulty Hard
 	 */
 	@Test
-	public void facetNarrowBysResultInCorrectProductCounts() {
+	public void facetNarrowBysResultInCorrectProductCounts() throws InterruptedException {
 		// Task #4: Implement this test
 
 		/*
 		WebElements list
 		for each - one by one and does each contain the filter keywords
-
+		.fg-search-results-li
 		 */
+
+		driver.get(getConfiguration("SinkSearch"));
+		BathroomSinksPage bathroomSinksPage = new BathroomSinksPage(driver, wait);
+
+		String itemsBeforeFirstFilter = bathroomSinksPage.itemsBeforeFiltering.getAttribute("value");
+		System.out.println("itemsBeforeFirstFilter = " + itemsBeforeFirstFilter);
+
+		bathroomSinksPage.moenCheckBox.click();
+		Thread.sleep(3000);
+		String itemsAfterMoenFilter = bathroomSinksPage.itemsAfterMoenFilter.getAttribute("value");
+		System.out.println("itemsAfterMoenFilter = " + itemsAfterMoenFilter);
+
+		bathroomSinksPage.monoblockCheckBox.click();
+		Thread.sleep(3000);
+		String itemsAfterMonoblockFilter = bathroomSinksPage.itemsAfterMonoblockFilter.getAttribute("value");
+		System.out.println("itemsAfterMonoblockFilter = " + itemsAfterMonoblockFilter);
+
+		bathroomSinksPage.showMoreButton.click();
+		Thread.sleep(3000);
+
+		List<WebElement> allItems = driver.findElements(By.cssSelector(".fg-search-results-li"));
+		String locator = driver.findElement(By.xpath(".fg-search-results-li"))
+		for (WebElement element: allItems) {
+			//System.out.println(allItems.size());
+			System.out.println(element.getAttribute().toString());
+
+		}
+
+
+
+
 	}
+
 }

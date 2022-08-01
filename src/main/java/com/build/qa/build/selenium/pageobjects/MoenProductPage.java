@@ -22,15 +22,6 @@ public class MoenProductPage extends BasePage{
         return wait.until(ExpectedConditions.presenceOfElementLocated(productPageWrapper)) != null;
     }
 
-    /*
-    public static String skuIDFinder = "//input[@data-sku-id = '?']";
-
-    public String findSKU(Long productSKU){
-        WebElement targetProductElement = driver.findElement(By.xpath(skuIDFinder.replace("?", productSKU)));
-        return targetProductElement.getText();
-    }
-
-     */
 
     @FindBy (xpath = "//a[@rel='Brushed Nickel']")
     public WebElement brushedNickleFinish;
@@ -49,6 +40,7 @@ public class MoenProductPage extends BasePage{
 
     @FindBy (xpath = "(//*[contains(text(),'Item #')])[1]")
     public WebElement ItemNum;
+
 
 
 

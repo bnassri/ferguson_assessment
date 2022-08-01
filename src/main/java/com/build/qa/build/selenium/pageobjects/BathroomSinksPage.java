@@ -48,6 +48,27 @@ public class BathroomSinksPage extends BasePage {
     @FindBy (xpath = "/html/body/div[15]/div/div")
     public WebElement popUpBox;
 
+    @FindBy (xpath = "(//*[@class='fcheckbox'])[6]")
+    public WebElement moenCheckBox;
+
+    @FindBy (xpath = "(//*[@class='fcheckbox'])[14]")
+    public WebElement monoblockCheckBox;
+
+    @FindBy (xpath = "//*[. = 'Show More']")
+    public WebElement showMoreButton;
+
+    @FindBy (xpath = "//input[@value = '3,102']")
+    public WebElement itemsBeforeFiltering;
+
+    @FindBy (xpath = "//input[@value = '213']")
+    public WebElement itemsAfterMoenFilter;
+
+    @FindBy (xpath = "//input[@value = '37']")
+    public  WebElement itemsAfterMonoblockFilter;
+
+    //*[@id="sku7203481"]/div[4]/a/p
+    (//*[@class = 'fg-search-results-li js-compare-search-item '])//div//div[4]//a
+
 
 
 
