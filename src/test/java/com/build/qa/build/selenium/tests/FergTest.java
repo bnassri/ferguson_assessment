@@ -97,7 +97,70 @@ public class FergTest extends BaseFramework {
 	@Test
 	public void addMultipleCartItemsAndChangeQuantity() throws InterruptedException {
 		// Task #3: Implement this test
+
+		driver.get(getConfiguration("HOMEPAGE"));
+		HomePage homepage = new HomePage(driver, wait);
+		homepage.searchBox.sendKeys("Moen m6702bn");
+		homepage.searchButton.click();
+
+		MoenSearchResultsPage task1SearchResultsPage = new MoenSearchResultsPage(driver,wait);
+		softly.assertThat(task1SearchResultsPage.onCorrectSearchResultsPage())
+				.isTrue();
+
+		MoenProductPage moenProductPage = new MoenProductPage(driver, wait);
+		ShoppingCartPage shoppingCartPage = new ShoppingCartPage(driver,wait);
+
+		//get item number for brushed nickel finish and add to cart
+		moenProductPage.brushedNickleFinish.click();
+		String brushedNickelItemNo = moenProductPage.ItemNum.getText().substring(10);
+		moenProductPage.addToCartButton.click();
+
+		wait = new FluentWait<WebDriver>(driver).withTimeout(5, TimeUnit.SECONDS).pollingEvery(500, TimeUnit.MILLISECONDS);
+
+		//get item number for matte black finsh and add to cart
+		moenProductPage.matteBlackFinish.click();
+		String matteBlackItemNo = moenProductPage.ItemNum.getText().substring(10);
+		moenProductPage.addToCartButton.click();
+
+
+		wait = new FluentWait<WebDriver>(driver).withTimeout(5, TimeUnit.SECONDS).pollingEvery(500, TimeUnit.MILLISECONDS);
+		moenProductPage.shoppingCartButton.click();
+
+
+		softly.assertThat(shoppingCartPage.onShoppingCartPage())
+				.isTrue();
+
+		//get single item cost for both finishes
+		String intialBNPrice = shoppingCartPage.priceBrushedNickel.getText();
+		String intialMatteBlackPrice = shoppingCartPage.priceMatteBlack.getText();
+		String totalPrice = shoppingCartPage.finalPrice.getText();
+
+		//add 2 brushed nickel finish faucets
+		shoppingCartPage.ItemLocator(brushedNickelItemNo).click();
+		shoppingCartPage.ItemLocator(brushedNickelItemNo).clear();
+		shoppingCartPage.ItemLocator(brushedNickelItemNo).sendKeys("2");
+
+		//add 3 matte black finish faucets
+		shoppingCartPage.ItemLocator(matteBlackItemNo).click();
+		shoppingCartPage.ItemLocator(matteBlackItemNo).clear();
+		shoppingCartPage.ItemLocator(matteBlackItemNo).sendKeys("3");
+
+		Thread.sleep(3000);
+
+		//get updated cost info
+		String finalBNPrice = shoppingCartPage.priceBrushedNickel.getText();
+		String finalMatteBlackPrice = shoppingCartPage.priceMatteBlack.getText();
+		String finalPrice = shoppingCartPage.finalPrice.getText();
+
+		softly.assertThat(!intialBNPrice.equals(finalBNPrice) && !intialMatteBlackPrice.equals(finalMatteBlackPrice)
+		&& !totalPrice.equals(finalPrice)).isTrue();
+
+
+
 	}
+
+
+
 
 	/**
 	 * Go to a category drop page (such as Bathroom Faucets) and narrow by
