@@ -32,9 +32,6 @@ public class MoenProductPage extends BasePage{
     @FindBy (xpath = "//input[@value ='Add to Cart']")
     public WebElement addToCartButton;
 
-    @FindBy (xpath = "//div[@class = 'success__message']")
-    public WebElement addToCartSuccessMsg;
-
     @FindBy (xpath = "//a[@class= 'js-cartitem-count cartitem-count ']")
     public WebElement shoppingCartButton;
 

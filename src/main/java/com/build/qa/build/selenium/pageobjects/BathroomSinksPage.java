@@ -1,6 +1,7 @@
 package com.build.qa.build.selenium.pageobjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,14 +10,16 @@ import org.openqa.selenium.support.FindBy;
 public class BathroomSinksPage extends BasePage {
 
     private By bathroomSinksPageWrapper;
-    private By popUpAlert;
 
 
     public BathroomSinksPage(WebDriver driver, Wait<WebDriver> wait) {
         super(driver, wait);
         bathroomSinksPageWrapper = By.cssSelector("#wrapper.plp");
 
+    }
 
+    public boolean onBathroomSinkFaucetPage() {
+        return wait.until(ExpectedConditions.presenceOfElementLocated(bathroomSinksPageWrapper)) != null;
     }
 
 

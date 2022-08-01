@@ -69,7 +69,7 @@ public abstract class BaseFramework {
 		return configuration.getProperty(config);
 	}
 
-	/*
+
 	@After
 	public void tearDownAfter() {
 		LOG.info("Quitting driver.");
@@ -78,5 +78,5 @@ public abstract class BaseFramework {
 
 	}
 
-	 */
+
 }

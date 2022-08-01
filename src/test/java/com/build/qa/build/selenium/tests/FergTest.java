@@ -2,7 +2,7 @@ package com.build.qa.build.selenium.tests;
 
 import com.build.qa.build.selenium.pageobjects.MoenProductPage;
 import com.build.qa.build.selenium.pageobjects.ShoppingCartPage;
-import com.build.qa.build.selenium.pageobjects.Task1_SearchResultsPage;
+import com.build.qa.build.selenium.pageobjects.MoenSearchResultsPage;
 import com.build.qa.build.selenium.pageobjects.BathroomSinksPage;
 import org.junit.Test;
 import org.openqa.selenium.*;
@@ -43,8 +43,8 @@ public class FergTest extends BaseFramework {
 		homepage.searchBox.sendKeys("Moen m6702bn");
 		homepage.searchButton.click();
 
-		Task1_SearchResultsPage task1SearchResultsPage = new Task1_SearchResultsPage(driver,wait);
-		softly.assertThat(task1SearchResultsPage.onCorrectSearchResultsPage())
+		MoenSearchResultsPage moenSearchResultsPage = new MoenSearchResultsPage(driver,wait);
+		softly.assertThat(moenSearchResultsPage.onCorrectSearchResultsPage())
 				.as("The correct product brand and product id should be displayed")
 				.isTrue();
 	}
@@ -62,17 +62,23 @@ public class FergTest extends BaseFramework {
 		driver.get(getConfiguration("SinkSearch"));
 		ShoppingCartPage shoppingCartPage = new ShoppingCartPage(driver,wait);
 		BathroomSinksPage bathroomSinksPage = new BathroomSinksPage(driver, wait);
+
+		softly.assertThat(bathroomSinksPage.onBathroomSinkFaucetPage())
+				.as("Verify that user is on bathroom sink faucet page")
+				.isTrue();
+
+
 		bathroomSinksPage.addToCartButton.click();
 
 
-
+		//switch to popup for adding to cart, get part#, and add to cart
 		driver.switchTo().activeElement().isDisplayed();
 		wait = new FluentWait<WebDriver>(driver).withTimeout(5, TimeUnit.SECONDS).pollingEvery(100, TimeUnit.MILLISECONDS).ignoring(StaleElementReferenceException.class).ignoring(NoSuchElementException.class);
 		String sinkPagePartNumber = bathroomSinksPage.findPartNumber("Pfister Pfirst Series™ Single Handle Monoblock Bathroom Sink Faucet in Polished Chrome");
 		bathroomSinksPage.cartPopUpAddButton.click();
 
 
-		wait = new FluentWait<WebDriver>(driver).withTimeout(2, TimeUnit.SECONDS).pollingEvery(500, TimeUnit.MILLISECONDS);
+		wait = new FluentWait<WebDriver>(driver).withTimeout(2, TimeUnit.SECONDS).pollingEvery(500, TimeUnit.MILLISECONDS).ignoring(NoSuchElementException.class);
 		bathroomSinksPage.shoppingCart.click();
 
 		softly.assertThat((shoppingCartPage.cartPartNumber.getText()).contains(sinkPagePartNumber))
@@ -103,12 +109,6 @@ public class FergTest extends BaseFramework {
 	@Test
 	public void facetNarrowBysResultInCorrectProductCounts() throws InterruptedException {
 		// Task #4: Implement this test
-
-		/*
-		WebElements list
-		for each - one by one and does each contain the filter keywords
-		.fg-search-results-li
-		 */
 
 		driver.get(getConfiguration("SinkSearch"));
 		BathroomSinksPage bathroomSinksPage = new BathroomSinksPage(driver, wait);

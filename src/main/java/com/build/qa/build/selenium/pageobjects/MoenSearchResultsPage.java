@@ -5,11 +5,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 
-public class Task1_SearchResultsPage extends BasePage {
+public class MoenSearchResultsPage extends BasePage {
     private By brandName;
     private By productNum;
 
-    public Task1_SearchResultsPage(WebDriver driver, Wait<WebDriver> wait) {
+    public MoenSearchResultsPage(WebDriver driver, Wait<WebDriver> wait) {
         super(driver, wait);
         brandName = By.xpath("//h2[@class='product__brand']") ;
         productNum = By.xpath("//span[. = 'Part #M6702BN']");
