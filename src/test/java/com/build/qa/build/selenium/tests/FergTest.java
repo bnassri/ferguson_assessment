@@ -1,10 +1,11 @@
 package com.build.qa.build.selenium.tests;
 
+import com.build.qa.build.selenium.pageobjects.MoenProductPage;
 import com.build.qa.build.selenium.pageobjects.ShoppingCartPage;
 import com.build.qa.build.selenium.pageobjects.Task1_SearchResultsPage;
 import com.build.qa.build.selenium.pageobjects.BathroomSinksPage;
 import org.junit.Test;
-
+import org.openqa.selenium.interactions.Actions;
 
 import com.build.qa.build.selenium.framework.BaseFramework;
 import com.build.qa.build.selenium.pageobjects.homepage.HomePage;
@@ -12,6 +13,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
@@ -90,7 +92,7 @@ public class FergTest extends BaseFramework {
 	 * @difficulty Medium-Hard
 	 */
 	@Test
-	public void addMultipleCartItemsAndChangeQuantity() {
+	public void addMultipleCartItemsAndChangeQuantity() throws InterruptedException {
 		// Task #3: Implement this test
 	}
 
@@ -104,5 +106,11 @@ public class FergTest extends BaseFramework {
 	@Test
 	public void facetNarrowBysResultInCorrectProductCounts() {
 		// Task #4: Implement this test
+
+		/*
+		WebElements list
+		for each - one by one and does each contain the filter keywords
+
+		 */
 	}
 }

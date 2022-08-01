@@ -20,6 +20,30 @@ public class ShoppingCartPage extends BasePage {
         return wait.until(ExpectedConditions.presenceOfElementLocated(shoppingCartWrapper)) != null;
     }
 
+    public WebElement ItemLocator(String itemNumber){
+
+        WebElement qtyBox = driver.findElement(By.xpath("(//*[@data-sku-id=\""+itemNumber+"\"])[2]"));
+        return qtyBox;
+    }
+
     @FindBy (css = "div.cl-info")
     public WebElement cartPartNumber;
+
+    @FindBy (xpath = "((//*[@class=\"total-price\"])[1]//span[1])[1]")
+    public WebElement priceBrushedNickel ;
+
+    @FindBy (xpath = "((//*[@class=\"total-price\"])[2]//span[1])[1]")
+    public WebElement priceMatteBlack;
+
+    @FindBy (xpath = "//*[@class=\"os-shipping\"]//span[2]")
+    public WebElement finalPrice;
+
+
+
+
+
+
+
+
+
 }
