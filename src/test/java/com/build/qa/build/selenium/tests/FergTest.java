@@ -114,17 +114,19 @@ public class FergTest extends BaseFramework {
 		//get item number for brushed nickel finish and add to cart
 		moenProductPage.brushedNickleFinish.click();
 		String brushedNickelItemNo = moenProductPage.ItemNum.getText().substring(10);
+
+		wait.until(ExpectedConditions.elementToBeClickable(moenProductPage.addToCartButton));
 		moenProductPage.addToCartButton.click();
 
-		wait = new FluentWait<WebDriver>(driver).withTimeout(5, TimeUnit.SECONDS).pollingEvery(500, TimeUnit.MILLISECONDS);
 
 		//get item number for matte black finsh and add to cart
 		moenProductPage.matteBlackFinish.click();
 		String matteBlackItemNo = moenProductPage.ItemNum.getText().substring(10);
+		wait.until(ExpectedConditions.elementToBeClickable(moenProductPage.addToCartButton));
 		moenProductPage.addToCartButton.click();
 
 
-		wait = new FluentWait<WebDriver>(driver).withTimeout(5, TimeUnit.SECONDS).pollingEvery(500, TimeUnit.MILLISECONDS);
+		wait.until(ExpectedConditions.elementToBeClickable(moenProductPage.shoppingCartButton));
 		moenProductPage.shoppingCartButton.click();
 
 
