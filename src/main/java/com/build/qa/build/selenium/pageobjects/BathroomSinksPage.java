@@ -37,16 +37,11 @@ public class BathroomSinksPage extends BasePage {
     public WebElement addToCartButton;
 
     @FindBy (css = "div[class='cart']" )
-    public WebElement shoppingCart;
+    public WebElement shoppingCartButton;
 
     @FindBy (xpath = "//button[@class='button mainly jq-quick-view-add-to-cart']")
     public WebElement cartPopUpAddButton;
 
-    @FindBy (css = "div#addToCartTips")
-    public WebElement cartAddConfirmation;
-
-    @FindBy (xpath = "/html/body/div[15]/div/div")
-    public WebElement popUpBox;
 
     @FindBy (xpath = "(//*[@class='fcheckbox'])[6]")
     public WebElement moenCheckBox;
@@ -65,13 +60,6 @@ public class BathroomSinksPage extends BasePage {
 
     @FindBy (xpath = "//div[@data-total-record]")
     public  WebElement itemCountAfterBothFilters;
-
-
-
-
-
-
-
 
 
 

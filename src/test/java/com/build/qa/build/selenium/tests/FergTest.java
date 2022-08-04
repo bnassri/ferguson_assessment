@@ -9,6 +9,7 @@ import org.openqa.selenium.*;
 
 import com.build.qa.build.selenium.framework.BaseFramework;
 import com.build.qa.build.selenium.pageobjects.homepage.HomePage;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import java.util.List;
@@ -67,19 +68,19 @@ public class FergTest extends BaseFramework {
 				.as("Verify that user is on bathroom sink faucet page")
 				.isTrue();
 
-
+		String sinkPagePartNumber = bathroomSinksPage.findPartNumber("Pfister Pfirst Series™ Single Handle Monoblock Bathroom Sink Faucet in Polished Chrome");
 		bathroomSinksPage.addToCartButton.click();
 
 
 		//switch to popup for adding to cart, get part#, and add to cart
 		driver.switchTo().activeElement().isDisplayed();
-		wait = new FluentWait<WebDriver>(driver).withTimeout(5, TimeUnit.SECONDS).pollingEvery(100, TimeUnit.MILLISECONDS).ignoring(StaleElementReferenceException.class).ignoring(NoSuchElementException.class);
-		String sinkPagePartNumber = bathroomSinksPage.findPartNumber("Pfister Pfirst Series™ Single Handle Monoblock Bathroom Sink Faucet in Polished Chrome");
+		wait.until(ExpectedConditions.elementToBeClickable(bathroomSinksPage.cartPopUpAddButton));
 		bathroomSinksPage.cartPopUpAddButton.click();
 
 
-		wait = new FluentWait<WebDriver>(driver).withTimeout(2, TimeUnit.SECONDS).pollingEvery(500, TimeUnit.MILLISECONDS).ignoring(NoSuchElementException.class);
-		bathroomSinksPage.shoppingCart.click();
+		wait.until(ExpectedConditions.elementToBeClickable(bathroomSinksPage.shoppingCartButton));
+		bathroomSinksPage.shoppingCartButton.click();
+
 
 		softly.assertThat((shoppingCartPage.cartPartNumber.getText()).contains(sinkPagePartNumber))
 				.as("part numbers must match")
