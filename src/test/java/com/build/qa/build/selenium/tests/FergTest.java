@@ -129,6 +129,7 @@ public class FergTest extends BaseFramework {
 
 
 		softly.assertThat(shoppingCartPage.onShoppingCartPage())
+				.as("should be on shopping cart page")
 				.isTrue();
 
 		//get single item cost for both finishes
